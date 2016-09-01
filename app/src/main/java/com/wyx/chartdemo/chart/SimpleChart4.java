@@ -15,7 +15,18 @@ import com.wyx.chartdemo.DataGenerator;
  * @version 创建时间: 2016/08/03 下午4:19
  *
  *          双缓冲技术及手势的应用
- */
+ *
+ *          双缓冲技术的优缺点
+
+　　优点：
+
+　　　　1.绘制过程中一般不会出现闪烁现象，能使动画平滑过度。
+
+　　　　2.高效，将图像一次性绘制到屏幕上比一次一次的绘制要高效的多。
+
+　　缺点：
+
+　　　　当图片过大时会严重的消耗内存*/
 
 public class SimpleChart4 extends TouchPointView {
   private int SIZE = 900;
@@ -55,8 +66,9 @@ public class SimpleChart4 extends TouchPointView {
       matrix.mapRect(rect);
       mDrawCanvas.drawRect(rect, linePaint);
     }
-    canvas.drawBitmap(mDrawBitmap, 0, 0, touchPaint);
     drawTouchPoint(mDrawCanvas);
+    canvas.drawBitmap(mDrawBitmap, 0, 0, touchPaint);
+
     Log.e("drawTime:", System.currentTimeMillis() - start + "ms");
   }
 

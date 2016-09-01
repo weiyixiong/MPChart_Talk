@@ -14,12 +14,11 @@ import com.wyx.chartdemo.DataGenerator;
  * @author winney E-mail: weiyixiong@tigerbrokers.com
  * @version 创建时间: 2016/08/03 下午4:19
  *
- *  4.extends TouchPointView
- *  4.1 双缓冲的优缺点
+ *          4.extends TouchPointView
  */
 
 public class SimpleChart3 extends TouchPointView {
-  private int SIZE = 9000;
+  private int SIZE = 900;
   float[] data = DataGenerator.getData(SIZE);
 
   float max = 0;

@@ -17,7 +17,7 @@ import com.wyx.chartdemo.DataGenerator;
  *
  *          Matrix的应用
  *
- * 3.支持缩放
+ *          3.支持缩放
  */
 
 public class SimpleChart2 extends View {
@@ -39,10 +39,10 @@ public class SimpleChart2 extends View {
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     float scaleX = ((float) getWidth()) / (SIZE - 1);
     float scaleY = getHeight() / getRange();
-    //3.1 set和post的区别
+    //3.1 set、pre和post的区别
     matrix.setScale(scaleX, scaleY);
     //3.2 旋转
-    matrix.postRotate(20);
+    //matrix.postRotate(20);
   }
 
   @Override
@@ -58,9 +58,35 @@ public class SimpleChart2 extends View {
       point[index + 3] = data[i + 1];
     }
     matrix.mapPoints(point);
+
+    poly();
     canvas.drawLines(point, linePaint);
 
     Log.e("drawTime:", System.currentTimeMillis() - start + "ms");
+  }
+
+  /**
+   * 多边形变换
+   */
+  private void poly() {
+    Matrix mPolyMatrix = new Matrix();
+    float[] src = {
+        0, 0,                                     // 左上
+        getWidth(), 0,                           // 右上
+        getWidth(), getHeight(),                 // 右下
+        0, getHeight()
+    };                                             // 左下
+
+    float[] dst = {
+        0 + 300, 0,                                    // 左上
+        getWidth()-300, 0,                 // 右上
+        getWidth(), getHeight(),           // 右下
+        0, getHeight()
+    };                                           // 左下
+
+    // 核心要点
+    mPolyMatrix.setPolyToPoly(src, 0, dst, 0, 3);
+    mPolyMatrix.mapPoints(point);
   }
 
   public float getRange() {
